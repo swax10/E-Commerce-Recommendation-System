@@ -6,31 +6,179 @@
     <title>main page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Additional CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #F39C12;
+            --accent-color: #2ECC71;
+            --text-color: #2C3E50;
+            --background-color: #f8f9fa;
+            --card-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
         .navbar {
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), #5D6DC3);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-weight: 500;
         }
 
         .nav-link:hover {
-            color: orange !important; /* Change text color on hover */
+            color: var(--secondary-color) !important;
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
         }
+
         .nav-link.btn {
-            border-radius: 5px; /* Add rounded corners to buttons */
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
         }
-        /* Additional styles for modal */
-        .modal-body {
-            text-align: center;
+
+        .search-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            margin-top: 2rem;
         }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            border: 2px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+        }
+
+        select.form-control {
+            background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+                            linear-gradient(135deg, gray 50%, transparent 50%);
+            background-position: calc(100% - 20px) calc(1em + 2px),
+                               calc(100% - 15px) calc(1em + 2px);
+            background-size: 5px 5px,
+                           5px 5px;
+            background-repeat: no-repeat;
+            padding-right: 30px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
         .modal-content {
-            background-color: #fff; /* Set modal content background color */
-            color: #000; /* Set modal content text color */
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
         }
-        .modal-content.dark {
-            background-color: #000; /* Set modal content background color for dark theme */
-            color: #fff; /* Set modal content text color for dark theme */
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color), #5D6DC3);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #2C3E50, #3498DB);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 5rem;
+        }
+
+        footer a {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Message styling */
+        .alert {
+            border-radius: 10px;
+            padding: 1rem 2rem;
+            margin: 1rem 0;
+            border: none;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Rating stars */
+        .rating {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
         }
     </style>
 </head>
@@ -64,56 +212,92 @@
 
 <!-- Search Bar -->
 <div class="container" style="margin-top:30px;">
-    <form action="/recommendations" method="post">
-        <div class="row align-items-end">
-            <div class="col-md-4">
-                <input type="text" class="form-control mr-2" name="prod" placeholder="Search for products...">
+    <div class="search-form">
+        <h4 class="text-center mb-4" style="color: var(--text-color); font-weight: 600;">
+            Find Your Perfect Products
+        </h4>
+        <form action="/recommendations" method="post">
+            <div class="row align-items-end">
+                <div class="col-md-4">
+                    <label for="prod" class="form-label">Product Name</label>
+                    <input type="text" class="form-control" id="prod" name="prod" placeholder="Enter product name...">
+                </div>
+                <div class="col-md-2">
+                    <label for="user_id" class="form-label">User ID</label>
+                    <input type="number" class="form-control" id="user_id" name="user_id" placeholder="Enter ID...">
+                </div>
+                <div class="col-md-2">
+                    <label for="nbr" class="form-label">Number of Items</label>
+                    <input type="number" class="form-control" id="nbr" name="nbr" value="5" min="1" max="20">
+                </div>
+                <div class="col-md-2">
+                    <label for="rec_type" class="form-label">Recommendation Type</label>
+                    <select class="form-control" id="rec_type" name="rec_type">
+                        <option value="content">Content-based</option>
+                        <option value="collaborative">Collaborative</option>
+                        <option value="hybrid">Hybrid</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">&nbsp;</label>
+                    <button class="btn btn-primary w-100">
+                        <i class="fas fa-search mr-2"></i> Find Products
+                    </button>
+                </div>
             </div>
-            <div class="col-md-2">
-                <input type="number" class="form-control" name="user_id" placeholder="User ID">
-            </div>
-            <div class="col-md-2">
-                <input type="number" class="form-control" name="nbr" placeholder="Number of items" value="5">
-            </div>
-            <div class="col-md-2">
-                <select class="form-control" name="rec_type">
-                    <option value="content">Content-based</option>
-                    <option value="collaborative">Collaborative</option>
-                    <option value="hybrid">Hybrid</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-primary w-100">Get Recommendations</button>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 {% if message %}
-<h5 style="margin-left:42%;margin-top:10px; text:bold;">{{message}}</h5>
+<div class="container mt-4">
+    <div class="alert text-center">
+        <i class="fas fa-info-circle mr-2"></i>
+        {{message}}
+    </div>
+</div>
 {% endif %}
 
-<!--trending recommendations-->
-<!--'Name', 'ReviewCount', 'Brand', 'ImageURL', 'Rating'-->
-<!-- Products -->
+<!-- Products Section -->
 {% if not content_based_rec.empty %}
 <div class="container mt-5">
-  <h2 class="text-center mb-4">Recommended Products</h2>
+    <h2 class="text-center mb-4">
+        <span style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); 
+                     -webkit-background-clip: text; 
+                     -webkit-text-fill-color: transparent; 
+                     font-weight: 700;">
+            Recommended Products
+        </span>
+    </h2>
   <div class="row mt-4">
     {% for index, product in content_based_rec.iterrows() %}
     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-      <div class="card">
-          <img src="{{ product['ImageURL'] }}" class="card-img-top" alt="{{ product['Name'] }}" style="height: 200px;">
-        <div class="card-body">
-          <h5 class="card-title">{{ truncate(product['Name'],12) }}</h5>
-          <p class="card-text">Brand: {{ product['Brand'] }}</p>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal{{ index }}">Buy Now</button>
-        </div>
+      <div class="card h-100">
+          <div class="position-relative">
+              <img src="{{ product['ImageURL'] }}" class="card-img-top" alt="{{ product['Name'] }}">
+              <div class="position-absolute" style="top: 10px; right: 10px;">
+                  <span class="badge badge-pill" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white;">
+                      <i class="fas fa-star"></i> {{ product['Rating'] }}
+                  </span>
+              </div>
+          </div>
+          <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ truncate(product['Name'],25) }}</h5>
+              <p class="card-text text-muted mb-2">{{ product['Brand'] }}</p>
+              <p class="card-text">
+                  <small class="text-muted">
+                      <i class="fas fa-comment"></i> {{ product['ReviewCount'] }} Reviews
+                  </small>
+              </p>
+              <button type="button" class="btn btn-primary mt-auto" data-toggle="modal" data-target="#productModal{{ index }}">
+                  <i class="fas fa-shopping-cart mr-2"></i>View Details
+              </button>
+          </div>
       </div>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="productModal{{ index }}" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="productModalLabel">{{ product['Name'] }}</h5>
@@ -123,23 +307,48 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-md-4">
-                  <img src="{{ product['ImageURL'] }}" class="img-fluid" alt="{{ product['Name'] }}" style="height: 200px;">
+              <div class="col-md-5">
+                  <img src="{{ product['ImageURL'] }}" class="img-fluid rounded" alt="{{ product['Name'] }}">
+                  <div class="mt-3 text-center">
+                      <span class="rating">
+                          {% for i in range(product['Rating']|int) %}
+                              <i class="fas fa-star"></i>
+                          {% endfor %}
+                          {% if product['Rating'] % 1 != 0 %}
+                              <i class="fas fa-star-half-alt"></i>
+                          {% endif %}
+                      </span>
+                      <p class="mt-2 mb-0">{{ product['Rating'] }} out of 5</p>
+                  </div>
               </div>
-              <div class="col-md-8">
-                <p><strong>Brand:</strong> {{ product['Brand'] }}</p>
-                <!-- Add other product details here -->
-                <!-- Example: -->
-                <p><strong>Review Count:</strong> {{ product['ReviewCount'] }}</p>
-                <p><strong>Rating:</strong> {{ product['Rating'] }}</p>
-                <p><strong>Price:</strong> {{ random_price }}</p>
-                <!-- Add more details as needed -->
+              <div class="col-md-7">
+                  <h4 class="mb-3">Product Details</h4>
+                  <div class="product-details">
+                      <p><i class="fas fa-tag mr-2"></i><strong>Brand:</strong> {{ product['Brand'] }}</p>
+                      <p><i class="fas fa-comments mr-2"></i><strong>Review Count:</strong> {{ product['ReviewCount'] }}</p>
+                      <p><i class="fas fa-dollar-sign mr-2"></i><strong>Price:</strong> ${{ random_price }}</p>
+                      <hr>
+                      <div class="quantity-selector mb-3">
+                          <label class="mr-2"><strong>Quantity:</strong></label>
+                          <select class="form-control d-inline-block" style="width: 100px;">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                          </select>
+                      </div>
+                  </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Add to Cart</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                <i class="fas fa-times mr-2"></i>Close
+            </button>
+            <button type="button" class="btn btn-primary">
+                <i class="fas fa-shopping-cart mr-2"></i>Add to Cart
+            </button>
           </div>
         </div>
       </div>
