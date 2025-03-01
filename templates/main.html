@@ -64,10 +64,28 @@
 
 <!-- Search Bar -->
 <div class="container" style="margin-top:30px;">
-    <form action="/recommendations" method="post" style="display:flex;">
-            <input type="text" class="form-control mr-2" name="prod" placeholder="Search for products...">
-            <input type="number" class="form-control" name="nbr" placeholder="Number of products..." style="width:100px;">
-            <button class="btn btn-primary">Search</button>
+    <form action="/recommendations" method="post">
+        <div class="row align-items-end">
+            <div class="col-md-4">
+                <input type="text" class="form-control mr-2" name="prod" placeholder="Search for products...">
+            </div>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="user_id" placeholder="User ID">
+            </div>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="nbr" placeholder="Number of items" value="5">
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" name="rec_type">
+                    <option value="content">Content-based</option>
+                    <option value="collaborative">Collaborative</option>
+                    <option value="hybrid">Hybrid</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100">Get Recommendations</button>
+            </div>
+        </div>
     </form>
 </div>
 
@@ -236,6 +254,39 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
+  // Function to toggle form fields based on recommendation type
+  function toggleFormFields() {
+    const recType = document.querySelector('select[name="rec_type"]').value;
+    const productInput = document.querySelector('input[name="prod"]');
+    const userIdInput = document.querySelector('input[name="user_id"]');
+    
+    // Reset required attributes
+    productInput.required = false;
+    userIdInput.required = false;
+    
+    // Show/hide and set required fields based on recommendation type
+    if (recType === 'content') {
+      productInput.parentElement.style.display = 'block';
+      userIdInput.parentElement.style.display = 'none';
+      productInput.required = true;
+    } else if (recType === 'collaborative') {
+      productInput.parentElement.style.display = 'none';
+      userIdInput.parentElement.style.display = 'block';
+      userIdInput.required = true;
+    } else if (recType === 'hybrid') {
+      productInput.parentElement.style.display = 'block';
+      userIdInput.parentElement.style.display = 'block';
+      productInput.required = true;
+      userIdInput.required = true;
+    }
+  }
+
+  // Add event listener for recommendation type changes
+  document.querySelector('select[name="rec_type"]').addEventListener('change', toggleFormFields);
+  
+  // Initial setup on page load
+  document.addEventListener('DOMContentLoaded', toggleFormFields);
+
   // Handle click on Settings link to open the modal
   document.getElementById('settingsLink').addEventListener('click', function() {
     $('#settingsModal').modal('show');
